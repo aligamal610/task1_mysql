@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <h2>Dashboard</h2>
+    <nav>
+      <a class="chip" href="/add-db"> Add Database</a>
+      <a class="chip" href="/add-user"> Add User</a>
+      <a class="chip" href="/logout">Logout</a>
+    </nav>
+  </header>
+
+  <% if (okMsg) { %><p class="ok">✅ <%= okMsg %></p><% } %>
+  <% if (errMsg) { %><p class="error">⛔ <%= errMsg %></p><% } %>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Databases</h3>
+      <table>
+        <thead><tr><th>Name</th><th>Actions</th></tr></thead>
+        <tbody>
+          <% if (!dbs.length) { %>
+            <tr><td colspan="2" class="muted">No databases yet.</td></tr>
+          <% } %>
+          <% dbs.forEach(db => { %>
+            <tr>
+              <td><code><%= db %></code></td>
+              <td><a class="btn" href="/add-table?db=<%= encodeURIComponent(db) %>">Add Table</a></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>Users</h3>
+      <table>
+        <thead><tr><th>User</th><th>Host</th></tr></thead>
+        <tbody>
+          <% if (!users.length) { %>
+            <tr><td colspan="2" class="muted">No users found.</td></tr>
+          <% } %>
+          <% users.forEach(u => { %>
+            <tr>
+              <td><code><%= u.User %></code></td>
+              <td><code><%= u.Host %></code></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Add User</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="card wide">
+    <h2>Add User (single-DB access)</h2>
+    <form method="post" action="/add-user">
+      <div class="row2">
+        <div>
+          <label>Username</label>
+          <input type="text" name="username" required pattern="[A-Za-z_][A-Za-z0-9_]*">
+        </div>
+        <div>
+          <label>Host</label>
+          <input type="text" name="host" value="localhost" required>
+        </div>
+      </div>
+      <label>Password</label>
+      <input type="password" name="password" required>
+
+      <label>Grant access to database</label>
+      <select name="db_name" required>
+        <option value="" disabled selected>Choose database…</option>
+        <% dbs.forEach(d => { %>
+          <option value="<%= d %>"><%= d %></option>
+        <% }) %>
+      </select>
+
+      <button type="submit">Create user & grant</button>
+      <% if (err) { %><p class="error"><%= err %></p><% } %>
+    </form>
+    <p><a href="/dashboard">← Back</a></p>
+  </div>
+</body>
+</html>
+

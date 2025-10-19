@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Add Database</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="card medium">
+    <h2> Add Database</h2>
+    <form method="post" action="/add-db">
+      <label>Database name (letters, numbers, _; start with letter/_)</label>
+      <input type="text" name="db_name" required pattern="[A-Za-z_][A-Za-z0-9_]*">
+      <button type="submit">Create</button>
+      <% if (err) { %><p class="error"><%= err %></p><% } %>
+    </form>
+    <p><a href="/dashboard">← Back</a></p>
+  </div>
+</body>
+</html>
+
