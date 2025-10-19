@@ -11,10 +11,10 @@ const MYSQL_HOST = process.env.MYSQL_HOST || "127.0.0.1";
 const PORT = process.env.PORT || 3000;
 
 app.set("view engine", "ejs");
-// إنت مستخدم public كـ views
+
 app.set("views", path.join(__dirname, "public"));
 
-// parsers + session
+
 app.use(express.urlencoded({ extended: false }));
 app.use(
   session({
@@ -24,13 +24,13 @@ app.use(
   })
 );
 
-// امنع فتح ملفات .ejs مباشرة كستاتيك (عشان ما تشوفش <% %>)
+
 app.use((req, res, next) => {
   if (req.path.endsWith(".ejs")) return res.status(404).send("Not found");
   next();
 });
 
-// static (style.css وصور... إلخ)
+
 app.use(express.static(path.join(__dirname, "public")));
 
 /* ---------- helpers ---------- */
@@ -80,7 +80,7 @@ function sanitizeIdentifier(name) {
 
 function ensureLoggedIn(req, res, next) {
   if (!isLoggedIn(req)) return res.redirect("/?err=auth");
-  // optional ping للتأكد من الباسورد
+
   testRootConn(req.session.rootPass).then((ok) => {
     if (!ok) {
       req.session.rootPass = undefined;
